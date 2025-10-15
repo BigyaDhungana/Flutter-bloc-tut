@@ -11,7 +11,7 @@ class AllTodosPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text("All todos"), centerTitle: true),
       body: Padding(
-        padding: EdgeInsetsGeometry.symmetric(horizontal: 10),
+        padding: EdgeInsets.symmetric(horizontal: 10),
         child: BlocBuilder<TodoBloc, TodoState>(
           builder: (context, state) {
             switch (state) {
@@ -36,7 +36,7 @@ class AllTodosPage extends StatelessWidget {
                           : Colors.red,
                       leading: Text('${todo.id}'),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadiusGeometry.circular(12),
+                        borderRadius: BorderRadius.circular(12),
                       ),
                     );
                   },
