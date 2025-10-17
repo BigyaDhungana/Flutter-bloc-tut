@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:todo_app/src/bloc/theme/theme_bloc.dart';
 import 'package:todo_app/src/bloc/todo/todo_bloc.dart';
 import 'package:todo_app/src/core/constants/app_themes.dart';
@@ -7,8 +9,14 @@ import 'package:todo_app/src/core/network/network_base.dart';
 import 'package:todo_app/src/data/repositories/todo_repository.dart';
 import 'package:todo_app/src/presentation/router/routes.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  HydratedBloc.storage = await HydratedStorage.build(
+    storageDirectory: HydratedStorageDirectory(
+      (await getTemporaryDirectory()).path,
+    ),
+  );
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {

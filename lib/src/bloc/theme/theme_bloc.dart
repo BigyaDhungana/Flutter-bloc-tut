@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 part "theme_event.dart";
 part "theme_state.dart";
 
-class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
+class ThemeBloc extends HydratedBloc<ThemeEvent, ThemeState> {
   ThemeBloc()
     : super(
         ThemeUpdateState(
@@ -67,6 +68,30 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
       return ThemeMode.dark;
     } else {
       return ThemeMode.light;
+    }
+  }
+
+  @override
+  Map<String, dynamic>? toJson(ThemeState state) {
+    return {
+      'themeMode': state.themeMode == ThemeMode.dark ? "dark" : "light",
+      'fontFamily': state.fontFamily,
+      'buttonColor': state.buttonColor.toARGB32(),
+    };
+  }
+
+  @override
+  ThemeState? fromJson(Map<String, dynamic> json) {
+    try {
+      return ThemeUpdateState(
+        themeMode: json['themeMode'] == "dark"
+            ? ThemeMode.dark
+            : ThemeMode.light,
+        fontFamily: json['fontFamily'] as String,
+        buttonColor: Color(json['buttonColor'] as int),
+      );
+    } catch (_) {
+      return null;
     }
   }
 }
