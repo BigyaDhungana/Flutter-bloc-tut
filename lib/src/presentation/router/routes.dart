@@ -9,11 +9,6 @@ final router = GoRouter(
 
   routes: [
     GoRoute(path: '/', name: 'home', builder: (context, state) => HomeScreen()),
-    // GoRoute(
-    //   path: '/todos',
-    //   name: 'todos',
-    //   builder: (context, state) => AllTodosScreen(),
-    // ),
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) =>
           TodosLayoutScreen(navigationShell: navigationShell),

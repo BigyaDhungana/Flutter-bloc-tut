@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app/src/bloc/todo/todo_bloc.dart';
 import 'package:todo_app/src/data/models/todo_model.dart';
 
-class AllTodosScreen extends StatelessWidget {
-  const AllTodosScreen({super.key});
+class AllTodosPage extends StatelessWidget {
+  const AllTodosPage({super.key});
 
   @override
   Widget build(BuildContext context) {

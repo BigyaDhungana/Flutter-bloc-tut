@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todo_app/src/bloc/todo_bloc.dart';
+import 'package:todo_app/src/bloc/theme/theme_bloc.dart';
+import 'package:todo_app/src/bloc/todo/todo_bloc.dart';
+import 'package:todo_app/src/core/constants/app_themes.dart';
 import 'package:todo_app/src/core/network/network_base.dart';
 import 'package:todo_app/src/data/repositories/todo_repository.dart';
 import 'package:todo_app/src/presentation/router/routes.dart';
@@ -17,9 +19,22 @@ class MyApp extends StatelessWidget {
     return RepositoryProvider(
       create: (context) => TodoRepository(NetworkInit()),
       child: Builder(
-        builder: (context) => BlocProvider(
-          create: (_) => TodoBloc(context.read<TodoRepository>()),
-          child: MaterialApp.router(routerConfig: router),
+        builder: (context) => MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (_) => TodoBloc(context.read<TodoRepository>()),
+            ),
+            BlocProvider(create: (_) => ThemeBloc()),
+          ],
+
+          child: BlocBuilder<ThemeBloc, ThemeState>(
+            builder: (context, state) => MaterialApp.router(
+              routerConfig: router,
+              darkTheme: AppThemes.darkTheme(state.fontFamily),
+              theme: AppThemes.lightTheme(state.fontFamily),
+              themeMode: state.themeMode,
+            ),
+          ),
         ),
       ),
     );

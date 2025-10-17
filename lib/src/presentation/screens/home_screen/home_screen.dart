@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:todo_app/src/core/constants/user_info.dart';
+import 'package:todo_app/src/presentation/common/elevated_button.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -13,12 +14,14 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("From : ${DevInfo.name}"),
-            ElevatedButton(
+            Text("From : ${DevInfo.name}",style: TextStyle(
+              fontSize: 18
+            ),),
+            ThemeButton(
+              text: "View Todos",
               onPressed: () {
-                context.push('/settings');
+                context.push('/todos');
               },
-              child: Text("View Todos"),
             ),
           ],
         ),
